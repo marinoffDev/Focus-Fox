@@ -1,12 +1,12 @@
-import './App.css'
-import { Button } from "@/components/ui/button"
+import Navbar from './components/Navbar.jsx'
+import Timer from '@/components/Timer.jsx';
+import { Button } from "@/components/ui/button";
 
 function App() {
   return (
     <>
-    <div className='flex justify-center items-center h-screen'>
-      <Button>Hello World</Button>
-    </div>
+      <Navbar />
+      <Timer className='flex-grow' />
     </>
   )
 }
