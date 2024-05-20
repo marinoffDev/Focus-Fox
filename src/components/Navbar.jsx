@@ -8,7 +8,7 @@ export default function Navbar() {
     <>
       <nav className='relative mx-auto flex justify-center items-center space-x-4 mt-4'>
         <div className="flex justify-center items-center">
-          <img className='w-10' src='./src/assets/logo.png' alt='logo' />
+          <img className='w-10' src='https://res.cloudinary.com/grffn/image/upload/v1716236444/Focus-Fox/logo.png' alt='logo' />
           <p className="font-bold">Focus Fox</p>
         </div>
         <Button variant="secondary">How to use</Button>
