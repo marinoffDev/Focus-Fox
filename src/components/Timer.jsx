@@ -1,15 +1,39 @@
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from 'react'
+import { formatTime } from '@/lib/utils'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card"
+
+import TimerCard from '@/components/TimerCard.jsx';
 
 export default function Timer() {
+  const defaultTime = 25 * 60;
+  const [time, setTime] = useState(defaultTime);
+  const [timerActive, setTimerActive] = useState(false);
+  let btnLabel = defaultTime > time ? "Resume" : "Start";
+  
+  useEffect(() => {
+    let ticker;
+    if (timerActive) {
+      ticker = setInterval(() => {
+        setTime(prevTime => {
+          if (prevTime === 0) {
+            clearInterval(ticker);
+            setTimerActive(false);
+            return 0;
+          } else {
+            return prevTime - 1;
+          }
+        });
+      }, 1000);
+    }
+    return () => clearInterval(ticker);
+  }, [timerActive])
+
+  const handleTimer = () => {
+    timerActive ? setTimerActive(false) : setTimerActive(true);
+  };
+
   return (
-    <div className='flex justify-center items-center mt-10'>
+    <div className='flex justify-center items-center mt-14'>
       <Tabs defaultValue="pomodoro" className="w-[400px]">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="pomodoro">Pomodoro</TabsTrigger>
@@ -17,34 +41,13 @@ export default function Timer() {
           <TabsTrigger value="longBreak">Long Break</TabsTrigger>
         </TabsList>
         <TabsContent value="pomodoro">
-          <Card>
-            <CardContent className='flex justify-center items-center mt-6'>
-                <Label htmlFor="timer" className='font-bold text-8xl'>25:00</Label>
-            </CardContent>
-            <CardFooter className='flex justify-center items-center'>
-              <Button className='w-32'>Start</Button>
-            </CardFooter>
-          </Card>
+          <TimerCard time={formatTime(time)} isActive={timerActive} onClick={handleTimer} buttonText={timerActive ? "Pause" : btnLabel} />
         </TabsContent>
         <TabsContent value="shortBreak">
-          <Card>
-            <CardContent className='flex justify-center items-center mt-6'>
-                <Label htmlFor="timer" className='font-bold text-8xl'>05:00</Label>
-            </CardContent>
-            <CardFooter className='flex justify-center items-center'>
-              <Button className='w-32'>Start</Button>
-            </CardFooter>
-          </Card>
+          <TimerCard time={formatTime(5 * 60)} onClick={() => console.log("clicked short break")} buttonText={"Start"} disabled={'cursor-not-allowed opacity-50'} />
         </TabsContent>
         <TabsContent value="longBreak">
-          <Card>
-            <CardContent className='flex justify-center items-center mt-6'>
-                <Label htmlFor="timer" className='font-bold text-8xl'>15:00</Label>
-            </CardContent>
-            <CardFooter className='flex justify-center items-center'>
-              <Button className='w-32'>Start</Button>
-            </CardFooter>
-          </Card>
+          <TimerCard time={formatTime(15 * 60)} onClick={() => console.log("clicked long break")} buttonText={"Start"} disabled={'cursor-not-allowed opacity-50'}/>
         </TabsContent>
       </Tabs>
     </div>
