@@ -8,16 +8,16 @@ import Logo from "@/components/ui/Logo";
 export default function Navbar() {
   return (
     <>
-      <nav className='relative mx-auto flex justify-center items-center space-x-4 mt-4'>
+      <nav className='relative mx-auto flex justify-center items-center space-x-4 mt-4 max-w-2xl'>
         <Logo />
-        <Button variant="secondary">How to use</Button>
-        <GitHubBtn />
-        <Button>Customize</Button>
+        <Button variant="outline">How to use</Button>
+        <GitHubBtn variant={"outline"} />
+        <Button variant="secondary">Customize</Button>
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
           <ModeToggle />
         </ThemeProvider>
       </nav>
-      <Separator className='my-4' />
+      <Separator className='block m-auto mt-4 max-w-xl' />
     </>
   )
 }
