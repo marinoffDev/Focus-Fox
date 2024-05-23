@@ -17,6 +17,12 @@ module.exports = {
       },
     },
     extend: {
+      height: {
+        '90svh' : '90svh',
+      },
+      minHeight: {
+        '90svh' : '90svh',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
