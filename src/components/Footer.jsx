@@ -3,13 +3,11 @@ import GitHubBtn from "@/components/ui/GitHubBtn";
 
 const year = new Date().getFullYear();
 
-export default function Footer() {
+export default function Footer({scrollToHome}) {
   return (
     <>
       <footer className='relative mx-auto flex justify-center items-center space-x-4 m-4 max-w-2xl'>
-        <a href="/Focus-Fox/" target="_self">
-          <Button variant="outline">Home</Button>
-        </a>
+        <Button variant="outline" onClick={scrollToHome}>Home</Button>
         <Button variant="outline">Privacy Policy</Button>
         <Button variant="outline">Terms and Conditions</Button>
         <GitHubBtn variant="secondary" />
