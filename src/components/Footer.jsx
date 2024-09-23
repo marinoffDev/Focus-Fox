@@ -18,11 +18,11 @@ export default function Footer({ scrollToHome }) {
       <p className="mb-4 w-full text-center text-xs">
         ©Focus Fox {year}. Code licensed under the{" "}
         <a
-          href="https://opensource.org/licenses/MIT"
+          href="https://github.com/marinoffDev/Focus-Fox/blob/main/LICENSE"
           target="_blank"
           className="underline"
         >
-          MIT License
+          CC BY-NC 4.0 License
         </a>
         .
       </p>
