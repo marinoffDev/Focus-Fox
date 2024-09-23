@@ -1,35 +1,47 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { formatTime } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 import TimerCard from "@/components/TimerCard.jsx";
 
 export default function Timer() {
-  const defaultTime = 25 * 60;
+  const defaultTime = 10 * 60;
   const [time, setTime] = useState(defaultTime);
   const [timerActive, setTimerActive] = useState(false);
+  const intervalRef = useRef(null); // Ref to hold the interval ID
+  const startTimeRef = useRef(null); // Ref to store the start time
   let btnLabel = defaultTime > time ? "Resume" : "Start";
 
   useEffect(() => {
-    let ticker;
     if (timerActive) {
-      ticker = setInterval(() => {
-        setTime((prevTime) => {
-          if (prevTime === 0) {
-            clearInterval(ticker);
-            setTimerActive(false);
-            return 0;
-          } else {
-            return prevTime - 1;
-          }
-        });
+      startTimeRef.current = Date.now();
+      intervalRef.current = setInterval(() => {
+        const elapsedTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
+        const newTime = defaultTime - elapsedTime;
+        if (newTime <= 0) {
+          clearInterval(intervalRef.current);
+          setTime(0);
+          setTimerActive(false);
+        } else {
+          setTime(newTime);
+        }
       }, 1000);
+    } else {
+      clearInterval(intervalRef.current);
     }
-    return () => clearInterval(ticker);
+
+    return () => clearInterval(intervalRef.current);
   }, [timerActive]);
 
+  useEffect(() => {
+    if (timerActive) {
+      document.title = `${formatTime(time)} - Focus Fox`;
+    } else {
+      document.title = "Focus Fox";
+    }
+  }, [time, timerActive]);
+
   const handleTimer = () => {
-    timerActive ? setTimerActive(false) : setTimerActive(true);
+    setTimerActive(!timerActive);
   };
 
   return (
@@ -52,7 +64,7 @@ export default function Timer() {
           <TimerCard
             time={formatTime(5 * 60)}
             onClick={() => console.log("clicked short break")}
-            buttonText={"Start"}
+            buttonText={timerActive ? "Pause" : btnLabel}
             disabled={"cursor-not-allowed opacity-50"}
           />
         </TabsContent>
@@ -60,7 +72,7 @@ export default function Timer() {
           <TimerCard
             time={formatTime(15 * 60)}
             onClick={() => console.log("clicked long break")}
-            buttonText={"Start"}
+            buttonText={timerActive ? "Pause" : btnLabel}
             disabled={"cursor-not-allowed opacity-50"}
           />
         </TabsContent>
