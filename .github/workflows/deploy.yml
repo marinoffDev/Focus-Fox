@@ -1,49 +1,33 @@
-name: Deploy
+name: Deploy Vite App to GitHub Pages
 
 on:
   push:
     branches:
-      - main
+      - main  # Triggers deployment on pushes to the 'main' branch
 
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-
-      - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-
-      - name: Build project
-        run: npm run build
-
-      - name: Upload production-ready build files
-        uses: actions/upload-artifact@v3
-        with:
-          name: production-files
-          path: ./dist
-
   deploy:
-    name: Deploy
-    needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4.1.7
-        with:
-          name: production-files
-          path: ./dist
+    - name: Checkout the repository
+      uses: actions/checkout@v3
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Set up environment variables
+      run: echo "VITE_NOTIFICATION_SOUND_URL=${{ secrets.VITE_NOTIFICATION_SOUND_URL }}" >> .env
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the project
+      run: npm run build
+
+    - name: Deploy to GitHub Pages
+      run: npm run deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
