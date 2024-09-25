@@ -4,19 +4,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TimerCard from "@/components/TimerCard.jsx";
 
 export default function Timer() {
-  const defaultTime = 10 * 60;
-  const [time, setTime] = useState(defaultTime);
+  const pomodoroTime = 25 * 60;
+  const shortBreakTime = 5 * 60;
+  const longBreakTime = 15 * 60;
+
+  const [activeTimer, setActiveTimer] = useState("pomodoro"); // Track which timer is active
+  const [time, setTime] = useState(pomodoroTime);
+  const [remainingTime, setRemainingTime] = useState(pomodoroTime); // Track remaining time
   const [timerActive, setTimerActive] = useState(false);
-  const intervalRef = useRef(null); // Ref to hold the interval ID
-  const startTimeRef = useRef(null); // Ref to store the start time
-  let btnLabel = defaultTime > time ? "Resume" : "Start";
+  const intervalRef = useRef(null);
+  const startTimeRef = useRef(null);
 
   useEffect(() => {
     if (timerActive) {
       startTimeRef.current = Date.now();
       intervalRef.current = setInterval(() => {
         const elapsedTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
-        const newTime = defaultTime - elapsedTime;
+        const newTime = remainingTime - elapsedTime;
+
         if (newTime <= 0) {
           clearInterval(intervalRef.current);
           setTime(0);
@@ -30,9 +35,9 @@ export default function Timer() {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [timerActive]);
+  }, [timerActive, remainingTime]);
 
-  useEffect(() => {
+    useEffect(() => {
     if (timerActive) {
       document.title = `${formatTime(time)} - Focus Fox`;
     } else {
@@ -41,39 +46,94 @@ export default function Timer() {
   }, [time, timerActive]);
 
   const handleTimer = () => {
+    if (timerActive) {
+      setRemainingTime(time); // Save remaining time when pausing
+    }
     setTimerActive(!timerActive);
+  };
+
+  const resetTimer = () => {
+    if (activeTimer === "pomodoro") {
+      setTime(pomodoroTime);
+      setRemainingTime(pomodoroTime);
+    } else if (activeTimer === "shortBreak") {
+      setTime(shortBreakTime);
+      setRemainingTime(shortBreakTime);
+    } else if (activeTimer === "longBreak") {
+      setTime(longBreakTime);
+      setRemainingTime(longBreakTime);
+    }
+    setTimerActive(false); // Ensure the timer is paused after reset
+  };
+
+  const switchTimer = (timerType) => {
+    setActiveTimer(timerType); // Set the active timer
+    setTimerActive(false); // Pause the current timer
+
+    // Reset time based on the selected timer
+    if (timerType === "pomodoro") {
+      setTime(pomodoroTime);
+      setRemainingTime(pomodoroTime);
+    } else if (timerType === "shortBreak") {
+      setTime(shortBreakTime);
+      setRemainingTime(shortBreakTime);
+    } else if (timerType === "longBreak") {
+      setTime(longBreakTime);
+      setRemainingTime(longBreakTime);
+    }
   };
 
   return (
     <div className="mt-14 flex items-center justify-center">
-      <Tabs defaultValue="pomodoro" className="w-[400px]">
+      <Tabs defaultValue="pomodoro" value={activeTimer} onValueChange={switchTimer} className="w-[400px]">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="pomodoro">Pomodoro</TabsTrigger>
-          <TabsTrigger value="shortBreak">Short Break</TabsTrigger>
-          <TabsTrigger value="longBreak">Long Break</TabsTrigger>
+          <TabsTrigger
+            value="pomodoro"
+            disabled={timerActive} // Disable when timer is running
+            className={timerActive ? "cursor-not-allowed opacity-50" : ""}
+          >
+            Pomodoro
+          </TabsTrigger>
+          <TabsTrigger
+            value="shortBreak"
+            disabled={timerActive} // Disable when timer is running
+            className={timerActive ? "cursor-not-allowed opacity-50" : ""}
+          >
+            Short Break
+          </TabsTrigger>
+          <TabsTrigger
+            value="longBreak"
+            disabled={timerActive} // Disable when timer is running
+            className={timerActive ? "cursor-not-allowed opacity-50" : ""}
+          >
+            Long Break
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="pomodoro">
           <TimerCard
             time={formatTime(time)}
-            isActive={timerActive}
+            isActive={timerActive && activeTimer === "pomodoro"}
             onClick={handleTimer}
-            buttonText={timerActive ? "Pause" : btnLabel}
+            onReset={resetTimer}
+            buttonText={timerActive ? "Pause" : time < pomodoroTime ? "Resume" : "Start"}
           />
         </TabsContent>
         <TabsContent value="shortBreak">
           <TimerCard
-            time={formatTime(5 * 60)}
-            onClick={() => console.log("clicked short break")}
-            buttonText={timerActive ? "Pause" : btnLabel}
-            disabled={"cursor-not-allowed opacity-50"}
+            time={formatTime(time)}
+            isActive={timerActive && activeTimer === "shortBreak"}
+            onClick={handleTimer}
+            onReset={resetTimer}
+            buttonText={timerActive ? "Pause" : time < shortBreakTime ? "Resume" : "Start"}
           />
         </TabsContent>
         <TabsContent value="longBreak">
           <TimerCard
-            time={formatTime(15 * 60)}
-            onClick={() => console.log("clicked long break")}
-            buttonText={timerActive ? "Pause" : btnLabel}
-            disabled={"cursor-not-allowed opacity-50"}
+            time={formatTime(time)}
+            isActive={timerActive && activeTimer === "longBreak"}
+            onClick={handleTimer}
+            onReset={resetTimer}
+            buttonText={timerActive ? "Pause" : time < longBreakTime ? "Resume" : "Start"}
           />
         </TabsContent>
       </Tabs>
