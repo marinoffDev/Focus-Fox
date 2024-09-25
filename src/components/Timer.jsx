@@ -8,12 +8,15 @@ export default function Timer() {
   const shortBreakTime = 5 * 60;
   const longBreakTime = 15 * 60;
 
-  const [activeTimer, setActiveTimer] = useState("pomodoro"); // Track which timer is active
+  const [activeTimer, setActiveTimer] = useState("pomodoro");
   const [time, setTime] = useState(pomodoroTime);
-  const [remainingTime, setRemainingTime] = useState(pomodoroTime); // Track remaining time
+  const [remainingTime, setRemainingTime] = useState(pomodoroTime);
   const [timerActive, setTimerActive] = useState(false);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
+
+  const audioUrl = import.meta.env.VITE_NOTIFICATION_SOUND_URL;
+  const audioRef = useRef(new Audio(audioUrl));
 
   useEffect(() => {
     if (timerActive) {
@@ -26,6 +29,7 @@ export default function Timer() {
           clearInterval(intervalRef.current);
           setTime(0);
           setTimerActive(false);
+          audioRef.current.play(); 
         } else {
           setTime(newTime);
         }
