@@ -15,7 +15,7 @@ export default function Timer() {
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
 
-  const audioUrl = import.meta.env.VITE_NOTIFICATION_SOUND_URL;
+  const audioUrl = import.meta.env.VITE_NOTIFICATION_SOUND_URL || "https://res.cloudinary.com/grffn/video/upload/v1727131856/Focus-Fox/notification.mp3";
   const audioRef = useRef(new Audio(audioUrl));
 
   useEffect(() => {
