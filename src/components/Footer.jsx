@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import GitHubBtn from "@/components/ui/GitHubBtn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleChevronUp, faFingerprint, faAsterisk } from "@fortawesome/free-solid-svg-icons";
+import { faCircleChevronUp, faFingerprint, faAsterisk, faMugSaucer } from "@fortawesome/free-solid-svg-icons";
 
 const year = new Date().getFullYear();
 
@@ -20,6 +20,11 @@ export default function Footer({ scrollToHome }) {
           <FontAwesomeIcon icon={faAsterisk} size="lg" className="mr-2" />Terms and Conditions
         </Button>
         <GitHubBtn variant="outline" />
+        <a href='https://ko-fi.com/marinoffdev' target='_blank' rel="noopener noreferrer">
+          <Button variant="secondary" target='_blank'>
+            <FontAwesomeIcon icon={faMugSaucer} size="lg" className="mr-2" />Buy Me a Coffee
+          </Button>
+        </a>
       </footer>
       <p className="mb-4 w-full text-center text-xs">
         ©Focus Fox {year}. Code licensed under the{" "}
