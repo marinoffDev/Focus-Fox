@@ -6,14 +6,14 @@ import { Separator } from "@/components/ui/separator";
 import GitHubBtn from "@/components/ui/GitHubBtn";
 import Logo from "@/components/ui/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes, faCircleInfo, faGear } from "@fortawesome/free-solid-svg-icons";
 
 export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <nav ref={ref} className="relative mx-auto mt-4 max-w-xl">
+      <nav ref={ref} className="relative mx-auto mt-4 max-w-3xl">
         <div className="flex items-center justify-between p-4">
           <Logo />
           <div className="sm:hidden">
@@ -23,9 +23,11 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
           </div>
           <div className="hidden sm:flex space-x-4 items-center">
             <Button variant="outline" onClick={scrollToHowToUse}>
-              How to use
+              <FontAwesomeIcon icon={faCircleInfo} size="lg" className="mr-2" />How to Use
             </Button>
-            <Button variant="outline">Customize</Button>
+            <Button variant="outline">
+              <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
+            </Button>
             <GitHubBtn variant={"outline"} />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
@@ -35,9 +37,11 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
         {isOpen && (
           <div className="sm:hidden flex flex-col items-center space-y-4 mt-4">
             <Button variant="outline" onClick={scrollToHowToUse}>
-              How to use
+              <FontAwesomeIcon icon={faCircleInfo} className="mr-2" />How to use
             </Button>
-            <Button variant="outline">Customize</Button>
+            <Button variant="outline">
+              <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
+            </Button>
             <GitHubBtn variant={"outline"} />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
@@ -45,7 +49,7 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
           </div>
         )}
       </nav>
-      <Separator className="m-auto mt-4 block max-w-xl" />
+      <Separator className="m-auto mt-4 block max-w-3xl" />
     </>
   );
 });
