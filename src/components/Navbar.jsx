@@ -28,7 +28,7 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
             <Button variant="outline">
               <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
             </Button>
-            <GitHubBtn variant={"outline"} />
+            <GitHubBtn variant="outline" />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
             </ThemeProvider>
@@ -42,7 +42,7 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
             <Button variant="outline">
               <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
             </Button>
-            <GitHubBtn variant={"outline"} />
+            <GitHubBtn variant="outline" />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
             </ThemeProvider>

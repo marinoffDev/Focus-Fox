@@ -21,7 +21,7 @@ export default function Footer({ scrollToHome }) {
         </Button>
         <GitHubBtn variant="outline" />
         <a href='https://ko-fi.com/marinoffdev' target='_blank' rel="noopener noreferrer">
-          <Button variant="secondary" target='_blank'>
+          <Button variant="outline" target='_blank'>
             <FontAwesomeIcon icon={faMugSaucer} size="lg" className="mr-2" />Buy Me a Coffee
           </Button>
         </a>
