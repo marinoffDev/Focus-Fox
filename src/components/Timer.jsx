@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { formatTime } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TimerCard from "@/components/TimerCard.jsx";
@@ -7,16 +7,59 @@ export default function Timer() {
   const pomodoroTime = 25 * 60;
   const shortBreakTime = 5 * 60;
   const longBreakTime = 15 * 60;
+  const cyclesBeforeLongBreak = 4;
 
   const [activeTimer, setActiveTimer] = useState("pomodoro");
   const [time, setTime] = useState(pomodoroTime);
   const [remainingTime, setRemainingTime] = useState(pomodoroTime);
   const [timerActive, setTimerActive] = useState(false);
+  const [pomodoroCycles, setPomodoroCycles] = useState(0);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
 
   const audioUrl = import.meta.env.VITE_NOTIFICATION_SOUND_URL || "https://res.cloudinary.com/grffn/video/upload/v1727131856/Focus-Fox/notification.mp3";
   const audioRef = useRef(new Audio(audioUrl));
+
+  // Memoize the switchTimer function
+  const switchTimer = useCallback((timerType) => {
+    setActiveTimer(timerType); // Set the active timer
+    setTimerActive(false); // Pause the current timer
+
+    // Reset time based on the selected timer
+    if (timerType === "pomodoro") {
+      setTime(pomodoroTime);
+      setRemainingTime(pomodoroTime);
+      if (pomodoroCycles === cyclesBeforeLongBreak) {
+        setPomodoroCycles(0); // Reset cycles after a long break
+      }
+    } else if (timerType === "shortBreak") {
+      setTime(shortBreakTime);
+      setRemainingTime(shortBreakTime);
+    } else if (timerType === "longBreak") {
+      setTime(longBreakTime);
+      setRemainingTime(longBreakTime);
+    }
+  }, [pomodoroTime, shortBreakTime, longBreakTime, pomodoroCycles, cyclesBeforeLongBreak]);
+
+  // Handle timer expiration and auto-switch logic
+  const handleTimerExpiration = useCallback((playNotificationSound) => {
+    if (playNotificationSound) {
+      audioRef.current.play(); // Play notification sound
+    }
+    if (activeTimer === "pomodoro") {
+      setPomodoroCycles((prevCycles) => prevCycles + 1); // Increment the Pomodoro cycle
+      if (pomodoroCycles + 1 === cyclesBeforeLongBreak) {
+        // After 4 Pomodoros, switch to Long Break
+        switchTimer("longBreak");
+      } else {
+        // Otherwise, switch to Short Break
+        switchTimer("shortBreak");
+      }
+    } else if (activeTimer === "shortBreak" || activeTimer === "longBreak") {
+      // After a break, switch back to Pomodoro
+      switchTimer("pomodoro");
+    }
+  }, [activeTimer, pomodoroCycles, cyclesBeforeLongBreak, switchTimer]);
 
   useEffect(() => {
     if (timerActive) {
@@ -29,7 +72,7 @@ export default function Timer() {
           clearInterval(intervalRef.current);
           setTime(0);
           setTimerActive(false);
-          audioRef.current.play(); 
+          handleTimerExpiration(true); // Call auto-switch logic on expiration
         } else {
           setTime(newTime);
         }
@@ -39,9 +82,9 @@ export default function Timer() {
     }
 
     return () => clearInterval(intervalRef.current);
-  }, [timerActive, remainingTime]);
+  }, [timerActive, remainingTime, handleTimerExpiration]);
 
-    useEffect(() => {
+  useEffect(() => {
     if (timerActive) {
       document.title = `${formatTime(time)} - Focus Fox`;
     } else {
@@ -60,31 +103,17 @@ export default function Timer() {
     if (activeTimer === "pomodoro") {
       setTime(pomodoroTime);
       setRemainingTime(pomodoroTime);
+      handleTimerExpiration(false);
     } else if (activeTimer === "shortBreak") {
       setTime(shortBreakTime);
       setRemainingTime(shortBreakTime);
+      handleTimerExpiration(false);
     } else if (activeTimer === "longBreak") {
       setTime(longBreakTime);
       setRemainingTime(longBreakTime);
+      handleTimerExpiration(false);
     }
     setTimerActive(false); // Ensure the timer is paused after reset
-  };
-
-  const switchTimer = (timerType) => {
-    setActiveTimer(timerType); // Set the active timer
-    setTimerActive(false); // Pause the current timer
-
-    // Reset time based on the selected timer
-    if (timerType === "pomodoro") {
-      setTime(pomodoroTime);
-      setRemainingTime(pomodoroTime);
-    } else if (timerType === "shortBreak") {
-      setTime(shortBreakTime);
-      setRemainingTime(shortBreakTime);
-    } else if (timerType === "longBreak") {
-      setTime(longBreakTime);
-      setRemainingTime(longBreakTime);
-    }
   };
 
   return (
