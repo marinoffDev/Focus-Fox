@@ -13,7 +13,7 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
 
   return (
     <>
-      <nav ref={ref} className="relative mx-auto mt-4 max-w-3xl">
+      <nav ref={ref} className="relative mx-auto max-w-3xl">
         <div className="flex items-center justify-between p-4">
           <Logo />
           <div className="sm:hidden">
@@ -22,34 +22,34 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
             </button>
           </div>
           <div className="hidden sm:flex space-x-4 items-center">
-            <Button variant="outline" onClick={scrollToHowToUse}>
+            <Button variant="ghost" onClick={scrollToHowToUse}>
               <FontAwesomeIcon icon={faCircleInfo} size="lg" className="mr-2" />How to Use
             </Button>
-            <Button variant="outline">
+            <Button variant="ghost">
               <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
             </Button>
-            <GitHubBtn variant="outline" />
+            <GitHubBtn variant="ghost" />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
             </ThemeProvider>
           </div>
         </div>
         {isOpen && (
-          <div className="sm:hidden flex flex-col items-center space-y-4 mt-4">
-            <Button variant="outline" onClick={scrollToHowToUse}>
+          <div className="sm:hidden flex flex-col items-center space-y-4 mb-4">
+            <Button variant="ghost" onClick={scrollToHowToUse}>
               <FontAwesomeIcon icon={faCircleInfo} className="mr-2" />How to use
             </Button>
-            <Button variant="outline">
+            <Button variant="ghost">
               <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
             </Button>
-            <GitHubBtn variant="outline" />
+            <GitHubBtn variant="ghost" />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
             </ThemeProvider>
           </div>
         )}
       </nav>
-      <Separator className="m-auto mt-4 block max-w-3xl" />
+      <Separator className="m-auto block max-w-3xl" />
     </>
   );
 });
