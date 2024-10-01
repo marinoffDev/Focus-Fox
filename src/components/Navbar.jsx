@@ -4,11 +4,12 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Separator } from "@/components/ui/separator";
 import GitHubBtn from "@/components/ui/GitHubBtn";
+import Customize from "./Customize";
 import Logo from "@/components/ui/Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes, faCircleInfo, faGear } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faTimes, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
-export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
+export default forwardRef(function Navbar({ scrollToHowToUse, timerSettings, onSaveTimerSettings }, ref) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -25,9 +26,10 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
             <Button variant="ghost" onClick={scrollToHowToUse}>
               <FontAwesomeIcon icon={faCircleInfo} size="lg" className="mr-2" />How to Use
             </Button>
-            <Button variant="ghost">
-              <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
-            </Button>
+            <Customize 
+              timerSettings={timerSettings} 
+              onSaveTimerSettings={onSaveTimerSettings} 
+            />
             <GitHubBtn variant="ghost" />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
@@ -39,9 +41,7 @@ export default forwardRef(function Navbar({ scrollToHowToUse }, ref) {
             <Button variant="ghost" onClick={scrollToHowToUse}>
               <FontAwesomeIcon icon={faCircleInfo} className="mr-2" />How to use
             </Button>
-            <Button variant="ghost">
-              <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
-            </Button>
+            <Customize/>
             <GitHubBtn variant="ghost" />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
