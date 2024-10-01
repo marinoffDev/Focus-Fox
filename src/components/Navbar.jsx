@@ -39,9 +39,12 @@ export default forwardRef(function Navbar({ scrollToHowToUse, timerSettings, onS
         {isOpen && (
           <div className="sm:hidden flex flex-col items-center space-y-4 mb-4">
             <Button variant="ghost" onClick={scrollToHowToUse}>
-              <FontAwesomeIcon icon={faCircleInfo} className="mr-2" />How to use
+              <FontAwesomeIcon icon={faCircleInfo} size="lg" className="mr-2" />How to Use
             </Button>
-            <Customize/>
+            <Customize 
+              timerSettings={timerSettings} 
+              onSaveTimerSettings={onSaveTimerSettings} 
+            />
             <GitHubBtn variant="ghost" />
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
               <ModeToggle />
