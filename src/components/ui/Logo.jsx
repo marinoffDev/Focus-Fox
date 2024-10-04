@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
+
 export default function Logo() {
   return (
-    <a
-      href="/Focus-Fox/"
-      target="_self"
+    <Link
+      to="/Focus-Fox/"
       className="flex items-center justify-center"
     >
       <img
@@ -11,6 +12,6 @@ export default function Logo() {
         alt="Focus Fox Logo"
       />
       <p className="font-bold">Focus Fox</p>
-    </a>
+    </Link>
   );
 }

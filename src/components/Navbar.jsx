@@ -1,6 +1,5 @@
 import { forwardRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ThemeProvider } from "@/components/ui/theme-provider";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import { Separator } from "@/components/ui/separator";
 import GitHubBtn from "@/components/ui/GitHubBtn";
@@ -31,9 +30,7 @@ export default forwardRef(function Navbar({ scrollToHowToUse, timerSettings, onS
               onSaveTimerSettings={onSaveTimerSettings} 
             />
             <GitHubBtn variant="ghost" />
-            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-              <ModeToggle />
-            </ThemeProvider>
+            <ModeToggle />
           </div>
         </div>
         {isOpen && (
@@ -46,9 +43,7 @@ export default forwardRef(function Navbar({ scrollToHowToUse, timerSettings, onS
               onSaveTimerSettings={onSaveTimerSettings} 
             />
             <GitHubBtn variant="ghost" />
-            <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-              <ModeToggle />
-            </ThemeProvider>
+            <ModeToggle />
           </div>
         )}
       </nav>
