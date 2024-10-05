@@ -26,11 +26,11 @@ This project is still in its early stages, so feedback and contributions are wel
 Check out the live version here: **[Focus Fox](https://marinoffdev.github.io/Focus-Fox/)**
 
 ## 🚀 Features
-- Pomodoro Timer: Focus on tasks in timed intervals (work/break cycles).
-- Customizable Timers: Adjust durations for Pomodoro, Short Breaks, and Long Breaks to suit your preferences.
-- Mobile Responsive: Works smoothly across desktop and mobile devices.
-- Dark/Light Mode: Toggle between dark and light themes.
-- Accessible & Minimalist Design: Simple UI that helps you stay focused.
+- **Pomodoro Timer**: Focus on tasks in timed intervals (work/break cycles).
+- **Customizable Timers**: Adjust durations for Pomodoro, Short Breaks, and Long Breaks to suit your preferences.
+- **Mobile Responsive**: Works smoothly across desktop and mobile devices.
+- **Dark/Light Mode**: Toggle between dark and light themes.
+- **Accessible & Minimalist Design**: Simple UI that helps you stay focused.
 
 ## 🤔 How to Use the Focus Fox Timer
 1. Customize the timer settings to fit your preferences.
@@ -74,7 +74,7 @@ npm run dev
 
 ## 🗺️ Roadmap
 Future plans for enhancements and development:
-- [ ] Add page routes for Privacy Policy, Terms and Conditions, and 404 Page Not Found
+- [x] Add page routes for Privacy Policy, Terms and Conditions, and 404 Page Not Found
 - [ ] Add customization option for number of pomodoro cycles before a long break (currently default is 4)
 - [ ] Add more theme options
 - [ ] Add more notification sound options
@@ -93,4 +93,4 @@ Here's how you can contribute:
 3. **Open a Pull Request**: Once your changes are ready, open a pull request (PR). Please reference the issue number and describe the changes you made.
 
 ## 📄 License
-Focus Fox is licensed under the CC BY-NC 4.0 License - see the [LICENSE](https://github.com/marinoffDev/Focus-Fox/blob/main/LICENSE) file for details.
+**Focus Fox** is licensed under the **CC BY-NC 4.0** License - see the [LICENSE](https://github.com/marinoffDev/Focus-Fox/blob/main/LICENSE) file for details.
