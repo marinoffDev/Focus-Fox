@@ -75,6 +75,8 @@ npm run dev
 ## 🗺️ Roadmap
 Future plans for enhancements and development:
 - [x] Add page routes for Privacy Policy, Terms and Conditions, and 404 Page Not Found
+- [x] Add sitemap.xml, robots.txt and meta tags
+- [ ] Add SSG plugin
 - [ ] Add customization option for number of pomodoro cycles before a long break (currently default is 4)
 - [ ] Add more theme options
 - [ ] Add more notification sound options
