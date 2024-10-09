@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { formatTime } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TimerCard from "@/components/TimerCard.jsx";
+import RoundsProgress from '@/components/RoundsProgress.jsx'
 
 export default function Timer({ settings }) {
   const { pomodoro, shortBreak, longBreak, sessionRounds } = settings;
@@ -173,8 +174,8 @@ export default function Timer({ settings }) {
             buttonText={timerActive ? "Pause" : time < longBreak ? "Resume" : "Start"}
           />
         </TabsContent>
+        <RoundsProgress pomodoroRounds={pomodoroRounds} sessionRounds={sessionRounds} />
       </Tabs>
-      <p className="my-4 font-semibold text-muted-foreground">{'Rounds Completed:'} {pomodoroRounds}{'/'}{sessionRounds}</p>
     </div>
   );
 }
