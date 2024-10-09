@@ -77,13 +77,14 @@ Future plans for enhancements and development:
 - [x] Add page routes for Privacy Policy, Terms and Conditions, and 404 Page Not Found
 - [x] Add sitemap.xml, robots.txt and meta tags
 - [x] Add customization option for number of pomodoro rounds before a long break (currently default is 4)
+- [ ] Add option to reset all user customizations back to default
 - [ ] Add SSG plugin
-- [ ] Add more theme options
 - [ ] Add more notification sound options
-- [ ] Add cookies to store customization preferences
 - [ ] Add option to start subsequent timers automatically
-- [ ] Add option to enable browser notifications
 - [ ] Add toggle for "super dark mode" while a timer is active
+- [ ] Add more theme options
+- [ ] Add cookies to store customization preferences
+- [ ] Add option to enable browser notifications
 
 ## 🤝 Contributing
 Contributions are welcome!
