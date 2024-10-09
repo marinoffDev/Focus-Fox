@@ -20,6 +20,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
     pomodoro: timerSettings.pomodoro / 60,
     shortBreak: timerSettings.shortBreak / 60,
     longBreak: timerSettings.longBreak / 60,
+    sessionRounds: timerSettings.sessionRounds
   });
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       pomodoro: timerSettings.pomodoro / 60,
       shortBreak: timerSettings.shortBreak / 60,
       longBreak: timerSettings.longBreak / 60,
+      sessionRounds: timerSettings.sessionRounds
     });
   }, [timerSettings]);
 
@@ -39,6 +41,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       pomodoro: settings.pomodoro * 60,
       shortBreak: settings.shortBreak * 60,
       longBreak: settings.longBreak * 60,
+      sessionRounds: settings.sessionRounds
     });
     setOpen(false);
   };
@@ -58,6 +61,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
         <DialogDescription>
           <TimerSlider
             label="Pomodoro"
+            unit="minute"
             value={settings.pomodoro}
             min={1}
             max={60}
@@ -65,6 +69,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
           />
           <TimerSlider
             label="Short Break"
+            unit="minute"
             value={settings.shortBreak}
             min={1}
             max={30}
@@ -72,10 +77,19 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
           />
           <TimerSlider
             label="Long Break"
+            unit="minute"
             value={settings.longBreak}
             min={1}
             max={60}
             onChange={(value) => handleChange("longBreak", value)}
+          />
+          <TimerSlider
+            label="Session Rounds"
+            unit="round"
+            value={settings.sessionRounds}
+            min={1}
+            max={10}
+            onChange={(value) => handleChange("sessionRounds", value)}
           />
         </DialogDescription>
         <DialogFooter className="mt-4 flex justify-center">

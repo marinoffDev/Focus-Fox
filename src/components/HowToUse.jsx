@@ -27,7 +27,7 @@ export default function HowToUse() {
         <li>Choose a task to focus on.</li>
         <li>{`Start the Pomodoro timer and concentrate solely on your task for the set duration (default: 25 minutes).`}</li>
         <li>{`Take a short break after each Pomodoro (default: 5 minutes).`}</li>
-        <li>{`After several Pomodoros, opt for a longer break (default: 15 minutes after every 4 cycles).`}</li>
+        <li>{`After several Pomodoros, opt for a longer break (default: 15 minutes after every 4 rounds).`}</li>
         <li>Repeat steps 3-5 until all your tasks are completed.</li>
       </ol>
     </div>

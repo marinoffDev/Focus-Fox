@@ -4,15 +4,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TimerCard from "@/components/TimerCard.jsx";
 
 export default function Timer({ settings }) {
-  const { pomodoro, shortBreak, longBreak } = settings;
-
-  const cyclesBeforeLongBreak = 4;
+  const { pomodoro, shortBreak, longBreak, sessionRounds } = settings;
 
   const [activeTimer, setActiveTimer] = useState("pomodoro");
   const [time, setTime] = useState(pomodoro);
   const [remainingTime, setRemainingTime] = useState(pomodoro);
   const [timerActive, setTimerActive] = useState(false);
-  const [pomodoroCycles, setPomodoroCycles] = useState(0);
+  const [pomodoroRounds, setpomodoroRounds] = useState(0);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
 
@@ -26,8 +24,8 @@ export default function Timer({ settings }) {
     if (timerType === "pomodoro") {
       setTime(pomodoro);
       setRemainingTime(pomodoro);
-      if (pomodoroCycles === cyclesBeforeLongBreak) {
-        setPomodoroCycles(0);
+      if (pomodoroRounds === sessionRounds) {
+        setpomodoroRounds(0);
       }
     } else if (timerType === "shortBreak") {
       setTime(shortBreak);
@@ -36,15 +34,15 @@ export default function Timer({ settings }) {
       setTime(longBreak);
       setRemainingTime(longBreak);
     }
-  }, [pomodoro, shortBreak, longBreak, pomodoroCycles, cyclesBeforeLongBreak]);
+  }, [pomodoro, shortBreak, longBreak, pomodoroRounds, sessionRounds]);
 
   const handleTimerExpiration = useCallback((playNotificationSound) => {
     if (playNotificationSound) {
       audioRef.current.play();
     }
     if (activeTimer === "pomodoro") {
-      setPomodoroCycles((prevCycles) => prevCycles + 1);
-      if (pomodoroCycles + 1 === cyclesBeforeLongBreak) {
+      setpomodoroRounds((prevRounds) => prevRounds + 1);
+      if (pomodoroRounds + 1 === sessionRounds) {
         switchTimer("longBreak");
       } else {
         switchTimer("shortBreak");
@@ -52,7 +50,7 @@ export default function Timer({ settings }) {
     } else if (activeTimer === "shortBreak" || activeTimer === "longBreak") {
       switchTimer("pomodoro");
     }
-  }, [activeTimer, pomodoroCycles, cyclesBeforeLongBreak, switchTimer]);
+  }, [activeTimer, pomodoroRounds, sessionRounds, switchTimer]);
 
   useEffect(() => {
     if (timerActive) {
@@ -121,9 +119,9 @@ export default function Timer({ settings }) {
       setRemainingTime(longBreak);
     }
   }, [pomodoro, shortBreak, longBreak, activeTimer]);
-
+  
   return (
-    <div className="mt-14 flex items-center justify-center">
+    <div className="my-14 flex flex-col items-center justify-center">
       <Tabs defaultValue="pomodoro" value={activeTimer} onValueChange={switchTimer} className="w-[400px]">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger
@@ -176,6 +174,7 @@ export default function Timer({ settings }) {
           />
         </TabsContent>
       </Tabs>
+      <p className="my-4 font-semibold text-muted-foreground">{'Rounds Completed:'} {pomodoroRounds}{'/'}{sessionRounds}</p>
     </div>
   );
 }

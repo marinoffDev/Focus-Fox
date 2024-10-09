@@ -26,7 +26,7 @@ This project is still in its early stages, so feedback and contributions are wel
 Check out the live version here: **[Focus Fox](https://marinoffdev.github.io/Focus-Fox/)**
 
 ## 🚀 Features
-- **Pomodoro Timer**: Focus on tasks in timed intervals (work/break cycles).
+- **Pomodoro Timer**: Focus on tasks in timed intervals (work/break cycles a.k.a. rounds).
 - **Customizable Timers**: Adjust durations for Pomodoro, Short Breaks, and Long Breaks to suit your preferences.
 - **Mobile Responsive**: Works smoothly across desktop and mobile devices.
 - **Dark/Light Mode**: Toggle between dark and light themes.
@@ -37,7 +37,7 @@ Check out the live version here: **[Focus Fox](https://marinoffdev.github.io/Foc
 2. Choose a task to focus on.
 3. Start the Pomodoro timer and concentrate solely on your task for the set duration (default: 25 minutes).
 4. Take a short break after each Pomodoro (default: 5 minutes).
-5. After several Pomodoros, opt for a longer break (default: 15 minutes after every 4 cycles).
+5. After several Pomodoros, opt for a longer break (default: 15 minutes after every 4 rounds).
 6. Repeat steps 3-5 until all your tasks are completed.
 
 If you would like to learn more about the Pomodoro technique you can read about it [here](https://en.wikipedia.org/wiki/Pomodoro_Technique).
@@ -76,8 +76,8 @@ npm run dev
 Future plans for enhancements and development:
 - [x] Add page routes for Privacy Policy, Terms and Conditions, and 404 Page Not Found
 - [x] Add sitemap.xml, robots.txt and meta tags
+- [x] Add customization option for number of pomodoro rounds before a long break (currently default is 4)
 - [ ] Add SSG plugin
-- [ ] Add customization option for number of pomodoro cycles before a long break (currently default is 4)
 - [ ] Add more theme options
 - [ ] Add more notification sound options
 - [ ] Add cookies to store customization preferences
