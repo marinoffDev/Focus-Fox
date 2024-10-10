@@ -6,7 +6,6 @@ import RoundsProgress from '@/components/RoundsProgress.jsx'
 
 export default function Timer({ settings }) {
   const { pomodoro, shortBreak, longBreak, sessionRounds } = settings;
-
   const [activeTimer, setActiveTimer] = useState("pomodoro");
   const [time, setTime] = useState(pomodoro);
   const [remainingTime, setRemainingTime] = useState(pomodoro);
@@ -14,7 +13,6 @@ export default function Timer({ settings }) {
   const [pomodoroRounds, setpomodoroRounds] = useState(0);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
-
   const audioUrl = import.meta.env.VITE_NOTIFICATION_SOUND_URL || "https://res.cloudinary.com/grffn/video/upload/v1727131856/Focus-Fox/notification.mp3";
   const audioRef = useRef(new Audio(audioUrl));
 
@@ -108,7 +106,11 @@ export default function Timer({ settings }) {
     setTimerActive(false);
   };
 
-    useEffect(() => {
+  useEffect(() => {
+    if (pomodoroRounds > sessionRounds) {
+      setpomodoroRounds(0);
+    }
+
     if (activeTimer === "pomodoro") {
       setTime(pomodoro);
       setRemainingTime(pomodoro);
@@ -119,7 +121,7 @@ export default function Timer({ settings }) {
       setTime(longBreak);
       setRemainingTime(longBreak);
     }
-  }, [pomodoro, shortBreak, longBreak, activeTimer]);
+  }, [pomodoro, shortBreak, longBreak, activeTimer, pomodoroRounds, sessionRounds]);
   
   return (
     <div className="my-14 flex flex-col items-center justify-center">
