@@ -13,6 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
 import TimerSlider from "@/components/ui/TimerSlider";
+import { defaultSettings } from "@/lib/defaultSettings"
 
 export default function Customize({ timerSettings, onSaveTimerSettings }) {
   const [open, setOpen] = useState(false);
@@ -36,6 +37,15 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
     setSettings((prev) => ({ ...prev, [type]: value }));
   };
 
+  const handleReset = () => {
+    setSettings({
+      pomodoro: defaultSettings.pomodoro / 60,
+      shortBreak: defaultSettings.shortBreak / 60,
+      longBreak: defaultSettings.longBreak / 60,
+      sessionRounds: defaultSettings.sessionRounds
+    });
+  };
+  
   const handleSave = () => {
     onSaveTimerSettings({
       pomodoro: settings.pomodoro * 60,
@@ -48,7 +58,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild={true}>
         <Button variant="ghost">
           <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
         </Button>
@@ -92,7 +102,8 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
             onChange={(value) => handleChange("sessionRounds", value)}
           />
         </DialogDescription>
-        <DialogFooter className="mt-4 flex justify-center">
+        <DialogFooter className="mt-4 flex justify-center gap-2">
+          <Button variant="secondary" onClick={handleReset}>Reset to Default</Button>
           <Button onClick={handleSave}>Save Changes</Button>
         </DialogFooter>
       </DialogContent>

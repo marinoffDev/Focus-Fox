@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar.jsx";
 import Timer from "@/components/Timer.jsx";
 import Footer from "@/components/Footer.jsx";
 import HowToUse from "@/components/HowToUse.jsx";
+import { defaultSettings } from "@/lib/defaultSettings"
 
 function App() {
   const refs = {
@@ -14,12 +15,7 @@ function App() {
     refs[section]?.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-    const [timerSettings, setTimerSettings] = useState({
-      pomodoro: 25 * 60,
-      shortBreak: 5 * 60,
-      longBreak: 15 * 60,
-      sessionRounds: 4
-    });
+  const [timerSettings, setTimerSettings] = useState(defaultSettings);
 
   return (
     <>
