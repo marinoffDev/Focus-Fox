@@ -72,7 +72,7 @@ npm install
 npm run dev
 ```
 
-## 🗺️ Roadmap
+## 🚧 Roadmap
 Future plans for enhancements and development:
 - [x] Add page routes for Privacy Policy, Terms and Conditions, and 404 Page Not Found
 - [x] Add sitemap.xml, robots.txt and meta tags
