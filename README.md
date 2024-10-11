@@ -78,8 +78,8 @@ Future plans for enhancements and development:
 - [x] Add sitemap.xml, robots.txt and meta tags
 - [x] Add customization option for number of pomodoro rounds before a long break (currently default is 4)
 - [x] Add option to reset all user customizations back to default
+- [x] Add more notification sound options
 - [ ] Add SSG plugin
-- [ ] Add more notification sound options
 - [ ] Add option to start subsequent timers automatically
 - [ ] Add toggle for "super dark mode" while a timer is active
 - [ ] Add more theme options

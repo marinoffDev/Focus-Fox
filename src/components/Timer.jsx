@@ -3,6 +3,7 @@ import { formatTime } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TimerCard from "@/components/TimerCard.jsx";
 import RoundsProgress from '@/components/RoundsProgress.jsx'
+import { notificationSounds } from "@/lib/notificationSounds"
 
 export default function Timer({ settings }) {
   const { pomodoro, shortBreak, longBreak, sessionRounds } = settings;
@@ -13,8 +14,7 @@ export default function Timer({ settings }) {
   const [pomodoroRounds, setpomodoroRounds] = useState(0);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
-  const audioUrl = import.meta.env.VITE_NOTIFICATION_SOUND_URL || "https://res.cloudinary.com/grffn/video/upload/v1727131856/Focus-Fox/notification.mp3";
-  const audioRef = useRef(new Audio(audioUrl));
+  const audioRef = useRef(new Audio(settings.notificationSound || notificationSounds["Mission Accomplished"]));
 
   const switchTimer = useCallback((timerType) => {
     setActiveTimer(timerType);
@@ -122,6 +122,10 @@ export default function Timer({ settings }) {
       setRemainingTime(longBreak);
     }
   }, [pomodoro, shortBreak, longBreak, activeTimer, pomodoroRounds, sessionRounds]);
+
+  useEffect(() => {
+    audioRef.current = new Audio(settings.notificationSound);
+  }, [settings.notificationSound]);
   
   return (
     <div className="my-14 flex flex-col items-center justify-center">
