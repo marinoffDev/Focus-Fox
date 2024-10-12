@@ -2,7 +2,9 @@
 <div align="center">
   <h1>Focus Fox</h1>
   <p><strong>Your Go-To Online Timer for Enhanced Productivity</strong></p>
-  <img alt="Focus Fox web app screenshot" src="https://raw.githubusercontent.com/marinoffDev/Focus-Fox/refs/heads/main/public/screenshot.jpg" width="770px">
+  <a href="https://marinoffdev.github.io/Focus-Fox/" target="_blank">
+    <img alt="Focus Fox web app screenshot" src="https://raw.githubusercontent.com/marinoffDev/Focus-Fox/refs/heads/main/public/screenshot.jpg" width="770px">
+  </a>
 </div>
 
 ---
@@ -28,6 +30,7 @@ Check out the live version here: **[Focus Fox](https://marinoffdev.github.io/Foc
 ## 🚀 Features
 - **Pomodoro Timer**: Focus on tasks in timed intervals (work/break cycles a.k.a. rounds).
 - **Customizable Timers**: Adjust durations for Pomodoro, Short Breaks, and Long Breaks to suit your preferences.
+- **Notifications**: Customizable notification sounds that play when a timer expires.
 - **Mobile Responsive**: Works smoothly across desktop and mobile devices.
 - **Dark/Light Mode**: Toggle between dark and light themes.
 - **Accessible & Minimalist Design**: Simple UI that helps you stay focused.
