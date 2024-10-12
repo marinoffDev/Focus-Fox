@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { formatTime } from "@/lib/utils";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TimerCard from "@/components/TimerCard.jsx";
-import RoundsProgress from '@/components/RoundsProgress.jsx'
+import { formatTime } from "@/lib/utils";
 import { notificationSounds } from "@/lib/notificationSounds"
 
 export default function Timer({ settings }) {
@@ -180,7 +179,7 @@ export default function Timer({ settings }) {
             buttonText={timerActive ? "Pause" : time < longBreak ? "Resume" : "Start"}
           />
         </TabsContent>
-        <RoundsProgress pomodoroRounds={pomodoroRounds} sessionRounds={sessionRounds} />
+        <p className="my-8 text-center font-semibold text-muted-foreground">{'Rounds Completed:'} {pomodoroRounds}{'/'}{sessionRounds}</p>
       </Tabs>
     </div>
   );

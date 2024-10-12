@@ -1,8 +1,8 @@
 
 <div align="center">
   <h1>Focus Fox</h1>
-  <p>Your Go-To Online Timer for Enhanced Productivity</p>
-  <img alt="Focus Fox web app screenshot" src="https://raw.githubusercontent.com/marinoffDev/Focus-Fox/refs/heads/main/public/screenshot.jpg" width="470px">
+  <p><strong>Your Go-To Online Timer for Enhanced Productivity</strong></p>
+  <img alt="Focus Fox web app screenshot" src="https://raw.githubusercontent.com/marinoffDev/Focus-Fox/refs/heads/main/public/screenshot.jpg" width="770px">
 </div>
 
 ---
@@ -13,7 +13,7 @@
 - [🤔 How to Use the Focus Fox Timer](#-how-to-use-the-focus-fox-timer)
 - [🛠 Technologies Used](#-technologies-used)
 - [💻 Installation](#-installation)
-- [🗺️ Roadmap](#-roadmap)
+- [🚧 Roadmap](#-roadmap)
 - [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
 ---
@@ -79,12 +79,12 @@ Future plans for enhancements and development:
 - [x] Add customization option for number of pomodoro rounds before a long break (currently default is 4)
 - [x] Add option to reset all user customizations back to default
 - [x] Add more notification sound options
-- [ ] Add SSG plugin
-- [ ] Add option to start subsequent timers automatically
-- [ ] Add toggle for "super dark mode" while a timer is active
-- [ ] Add more theme options
 - [ ] Add cookies to store customization preferences
 - [ ] Add option to enable browser notifications
+- [ ] Add option to start subsequent timers automatically
+- [ ] Add SSG plugin
+- [ ] Add toggle for "super dark mode" while a timer is active
+- [ ] Add more theme options
 
 ## 🤝 Contributing
 Contributions are welcome!
