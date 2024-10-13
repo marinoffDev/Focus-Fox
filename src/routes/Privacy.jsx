@@ -8,7 +8,7 @@ export default function Privacy() {
       navigateToRoute={"/Focus-Fox/Terms/"} 
       navigateToRouteLabel={"Terms and Conditions"} 
       pageTitle={"Privacy Policy"} 
-      effectiveDateText={"October 5th 2024"}
+      effectiveDateText={"October 13th 2024"}
     >
       <p className="py-2">
         Focus Fox ({`"we", "us", or "our"`}) provides a web-based Pomodoro technique timer at <Link to="/Focus-Fox/" className="underline">https://marinoffdev.github.io/Focus-Fox/</Link> (the {`"Service"`}). This Privacy Policy outlines what data is collected, how it is used, and your choices regarding that data.
@@ -19,7 +19,7 @@ export default function Privacy() {
       </p>
       <h2 className="text-3xl font-bold pt-4">Cookies and Preferences</h2>
       <p className="py-2">
-        {`Focus Fox currently does not use cookies. However, in the future, we plan to implement cookies to store your Pomodoro timer settings, theme preferences, and notification sound choices. These cookies will be used solely to improve your experience by saving your preferences, ensuring you don't have to reconfigure settings on each visit.`}
+        {`Focus Fox employs browser cookies that are purely functional, enabling the site to remember your customized timer settings, theme, and notification preferences. These cookies do not track your browsing activity, are not used for advertising purposes, and do not collect any personal information.`}
       </p>
       <h2 className="text-3xl font-bold pt-4">External Links and Services</h2>
       <p className="py-2">

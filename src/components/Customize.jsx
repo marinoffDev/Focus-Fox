@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -20,40 +20,38 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
-import TimerSlider from "@/components/ui/TimerSlider";
 import { defaultSettings } from "@/lib/defaultSettings"
 import { notificationSounds } from "@/lib/notificationSounds"
+import TimerSlider from "@/components/ui/TimerSlider";
 
 export default function Customize({ timerSettings, onSaveTimerSettings }) {
   const [open, setOpen] = useState(false);
-  const [settings, setSettings] = useState({
-    pomodoro: timerSettings.pomodoro / 60,
-    shortBreak: timerSettings.shortBreak / 60,
-    longBreak: timerSettings.longBreak / 60,
-    sessionRounds: timerSettings.sessionRounds,
-    notificationSound: timerSettings.notificationSound
-  });
-
+  const [settings, setSettings] = useState(timerSettings);
+  
   useEffect(() => {
-    setSettings({
+    setSettings((prevSettings) => ({
+      ...prevSettings,
       pomodoro: timerSettings.pomodoro / 60,
       shortBreak: timerSettings.shortBreak / 60,
       longBreak: timerSettings.longBreak / 60,
       sessionRounds: timerSettings.sessionRounds,
-      notificationSound: timerSettings.notificationSound
-    });
+      notificationSound: timerSettings.notificationSound,
+    }));
   }, [timerSettings]);
 
+  // Handle changes in settings
   const handleChange = (type, value) => {
-    setSettings((prev) => ({ ...prev, [type]: value }));
+    setSettings((prevSettings) => ({ ...prevSettings, [type]: value }));
   };
 
+  // Handle notification sound change and play preview sound
   const handleSoundChange = (value) => {
-    setSettings((prev) => ({ ...prev, notificationSound: value }));
+    setSettings((prevSettings) => ({ ...prevSettings, notificationSound: value }));
     const sound = new Audio(value);
     sound.play();
   };
 
+  // When resetting to default, always fallback to the hardcoded default values
   const handleReset = () => {
     setSettings({
       pomodoro: defaultSettings.pomodoro / 60,
@@ -64,6 +62,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
     });
   };
   
+  // Only save user preferences if they actually click the Save Changes button
   const handleSave = () => {
     onSaveTimerSettings({
       pomodoro: settings.pomodoro * 60,
@@ -77,7 +76,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild={true}>
+      <DialogTrigger asChild>
         <Button variant="ghost">
           <FontAwesomeIcon icon={faGear} size="lg" className="mr-2" />Customize
         </Button>
@@ -87,51 +86,53 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
           <DialogTitle className="mb-2">Settings</DialogTitle>
           <Separator />
         </DialogHeader>
-        <DialogDescription>
-          <TimerSlider
-            label="Pomodoro"
-            unit="minute"
-            value={settings.pomodoro}
-            min={1}
-            max={60}
-            onChange={(value) => handleChange("pomodoro", value)}
-          />
-          <TimerSlider
-            label="Short Break"
-            unit="minute"
-            value={settings.shortBreak}
-            min={1}
-            max={30}
-            onChange={(value) => handleChange("shortBreak", value)}
-          />
-          <TimerSlider
-            label="Long Break"
-            unit="minute"
-            value={settings.longBreak}
-            min={1}
-            max={60}
-            onChange={(value) => handleChange("longBreak", value)}
-          />
-          <TimerSlider
-            label="Session Rounds"
-            unit="round"
-            value={settings.sessionRounds}
-            min={1}
-            max={10}
-            onChange={(value) => handleChange("sessionRounds", value)}
-          />
-          <div className="mt-5 flex items-center gap-4">
-            <Label className="text-nowrap">Notification Sound</Label>
-            <Select className="w-full" onValueChange={handleSoundChange} value={settings.notificationSound}>
-              <SelectTrigger>
-               <SelectValue>{Object.keys(notificationSounds).find(key => notificationSounds[key] === settings.notificationSound) || "Choose a sound..."}</SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                {Object.entries(notificationSounds).map(([key, value]) => (
-                  <SelectItem key={value} value={value}>{key}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+        <DialogDescription asChild>
+          <div>
+            <TimerSlider
+              label="Pomodoro"
+              unit="minute"
+              value={settings.pomodoro}
+              min={1}
+              max={60}
+              onChange={(value) => handleChange("pomodoro", value)}
+            />
+            <TimerSlider
+              label="Short Break"
+              unit="minute"
+              value={settings.shortBreak}
+              min={1}
+              max={30}
+              onChange={(value) => handleChange("shortBreak", value)}
+            />
+            <TimerSlider
+              label="Long Break"
+              unit="minute"
+              value={settings.longBreak}
+              min={1}
+              max={60}
+              onChange={(value) => handleChange("longBreak", value)}
+            />
+            <TimerSlider
+              label="Session Rounds"
+              unit="round"
+              value={settings.sessionRounds}
+              min={1}
+              max={10}
+              onChange={(value) => handleChange("sessionRounds", value)}
+            />
+            <div className="mt-5 flex items-center gap-4">
+              <Label className="text-nowrap">Notification Sound</Label>
+              <Select className="w-full" onValueChange={handleSoundChange} value={settings.notificationSound}>
+                <SelectTrigger>
+                  <SelectValue>{Object.keys(notificationSounds).find(key => notificationSounds[key] === settings.notificationSound) || "Choose a sound..."}</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(notificationSounds).map(([key, value]) => (
+                    <SelectItem key={value} value={value}>{key}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </DialogDescription>
         <DialogFooter className="mt-4 flex justify-center gap-2">

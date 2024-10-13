@@ -84,7 +84,7 @@ Future plans for enhancements and development:
 - [x] Add more notification sound options
 - [x] Add open graph meta tags
 - [x] Add option to enable browser notifications
-- [ ] Add cookies to store a user's customization preferences
+- [x] Add cookies to store a user's customization preferences
 - [ ] Add option to start subsequent timers automatically
 - [ ] Add SSG build step before deployment
 - [ ] Add toggle for "super dark mode" while a timer is active
