@@ -1,7 +1,7 @@
 
 <div align="center">
-  <h1>Focus Fox</h1>
-  <p><strong>Your Go-To Online Timer for Enhanced Productivity</strong></p>
+  <h1 style="font-weight: 800;">Focus Fox</h1>
+  <h2 style="font-size: 1.2rem; font-weight: 600; font-style="italic">Your Go-To Online Timer for Enhanced Productivity</h2>
   <a href="https://marinoffdev.github.io/Focus-Fox/" target="_blank">
     <img alt="Focus Fox web app screenshot" src="https://raw.githubusercontent.com/marinoffDev/Focus-Fox/refs/heads/main/public/screenshot.jpg" width="770px">
   </a>
@@ -30,7 +30,7 @@ Check out the live version here: **[Focus Fox](https://marinoffdev.github.io/Foc
 ## 🚀 Features
 - **Pomodoro Timer**: Focus on tasks in timed intervals (work/break cycles a.k.a. rounds).
 - **Customizable Timers**: Adjust durations for Pomodoro, Short Breaks, and Long Breaks to suit your preferences.
-- **Notifications**: Customizable notification sounds that play when a timer expires.
+- **Notifications**: Get browser notifications when a timer expires with customizable sounds.
 - **Mobile Responsive**: Works smoothly across desktop and mobile devices.
 - **Dark/Light Mode**: Toggle between dark and light themes.
 - **Accessible & Minimalist Design**: Simple UI that helps you stay focused.
@@ -82,10 +82,11 @@ Future plans for enhancements and development:
 - [x] Add customization option for number of pomodoro rounds before a long break (currently default is 4)
 - [x] Add option to reset all user customizations back to default
 - [x] Add more notification sound options
-- [ ] Add cookies to store customization preferences
-- [ ] Add option to enable browser notifications
+- [x] Add open graph meta tags
+- [x] Add option to enable browser notifications
+- [ ] Add cookies to store a user's customization preferences
 - [ ] Add option to start subsequent timers automatically
-- [ ] Add SSG plugin
+- [ ] Add SSG build step before deployment
 - [ ] Add toggle for "super dark mode" while a timer is active
 - [ ] Add more theme options
 

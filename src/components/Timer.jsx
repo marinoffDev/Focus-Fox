@@ -38,6 +38,10 @@ export default function Timer({ settings }) {
     if (playNotificationSound) {
       audioRef.current.play();
     }
+    showNotification(activeTimer === "pomodoro" ? 
+      "Pomodoro finished. Time for a break! 🎉" : 
+      "Break time is over! Let's focus! 🦊💻"
+    );
     if (activeTimer === "pomodoro") {
       setpomodoroRounds((prevRounds) => prevRounds + 1);
       if (pomodoroRounds + 1 === sessionRounds) {
@@ -76,6 +80,7 @@ export default function Timer({ settings }) {
   useEffect(() => {
     if (timerActive) {
       document.title = `${formatTime(time)} - Focus Fox`;
+      requestNotificationPermission();
     } else {
       document.title = "Focus Fox";
     }
@@ -125,6 +130,21 @@ export default function Timer({ settings }) {
   useEffect(() => {
     audioRef.current = new Audio(settings.notificationSound);
   }, [settings.notificationSound]);
+
+  const requestNotificationPermission = () => {
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+  };
+
+  const showNotification = (message) => {
+    if (Notification.permission === "granted") {
+      new Notification("Focus Fox", {
+        body: message,
+        icon: "https://res.cloudinary.com/grffn/image/upload/v1716236444/Focus-Fox/logo.png",
+      });
+    }
+  };
   
   return (
     <div className="my-14 flex flex-col items-center justify-center">
