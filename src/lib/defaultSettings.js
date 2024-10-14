@@ -5,5 +5,7 @@ export const defaultSettings = {
   shortBreak: 5 * 60,
   longBreak: 15 * 60,
   sessionRounds: 4,
-  notificationSound: notificationSounds["Mission Accomplished"]
+  notificationSound: notificationSounds["Mission Accomplished"],
+  autoStartPomodoro : false,
+  autoStartBreak : false
 }

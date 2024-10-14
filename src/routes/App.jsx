@@ -21,8 +21,12 @@ function App() {
       const longBreakCookie = Cookies.get("longBreak");
       const sessionRoundsCookie = Cookies.get("sessionRounds");
       const notificationSoundCookie = Cookies.get("notificationSound");
+      const autoStartPomodoroCookie = Cookies.get("autoStartPomodoro");
+      const autoStartBreakCookie = Cookies.get("autoStartBreak");
 
-      if (pomodoroCookie && shortBreakCookie && longBreakCookie && sessionRoundsCookie && notificationSoundCookie) {
+      if (pomodoroCookie && shortBreakCookie && longBreakCookie && 
+        sessionRoundsCookie && notificationSoundCookie && 
+        autoStartPomodoroCookie && autoStartBreakCookie) {
         setTimerSettings((prevSettings) => ({
           ...prevSettings,
           pomodoro: Number(pomodoroCookie),
@@ -30,6 +34,8 @@ function App() {
           longBreak: Number(longBreakCookie),
           sessionRounds: Number(sessionRoundsCookie),
           notificationSound: notificationSoundCookie,
+          autoStartPomodoro: autoStartPomodoroCookie === "true",
+          autoStartBreak: autoStartBreakCookie === "true"
         }));
       }
     };
@@ -44,6 +50,8 @@ function App() {
     Cookies.set("longBreak", newSettings.longBreak, { expires: 365 });
     Cookies.set("sessionRounds", newSettings.sessionRounds, { expires: 365 });
     Cookies.set("notificationSound", newSettings.notificationSound, { expires: 365 });
+    Cookies.set("autoStartPomodoro", newSettings.autoStartPomodoro, { expires: 365 });
+    Cookies.set("autoStartBreak", newSettings.autoStartBreak, { expires: 365 });
   };
 
   const handleScrollToSection = (section) => {

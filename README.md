@@ -29,7 +29,7 @@ Check out the live version here: **[Focus Fox](https://marinoffdev.github.io/Foc
 
 ## 🚀 Features
 - **Pomodoro Timer**: Focus on tasks in timed intervals (work/break cycles a.k.a. rounds).
-- **Customizable Timers**: Adjust durations for Pomodoro, Short Breaks, and Long Breaks to suit your preferences.
+- **Customizable Timers**: Adjust durations for Pomodoro, Short Breaks, Long Breaks and auto-start behavior to suit your preferences.
 - **Notifications**: Get browser notifications when a timer expires with customizable sounds.
 - **Mobile Responsive**: Works smoothly across desktop and mobile devices.
 - **Dark/Light Mode**: Toggle between dark and light themes.
@@ -78,17 +78,18 @@ npm run dev
 ## 🚧 Roadmap
 Future plans for enhancements and development:
 - [x] Add page routes for Privacy Policy, Terms and Conditions, and 404 Page Not Found
-- [x] Add sitemap.xml, robots.txt and meta tags
-- [x] Add customization option for number of pomodoro rounds before a long break (currently default is 4)
-- [x] Add option to reset all user customizations back to default
+- [x] Add a sitemap.xml, robots.txt and meta tags
+- [x] Add a customization option for number of pomodoro rounds before a long break (currently default is 4)
+- [x] Add an option to reset all user customizations preferences back to default
 - [x] Add more notification sound options
 - [x] Add open graph meta tags
-- [x] Add option to enable browser notifications
-- [x] Add cookies to store a user's customization preferences
-- [ ] Add option to start subsequent timers automatically
+- [x] Add an option to enable browser notifications
+- [x] Add browser cookies support to store the user's customization preferences
+- [x] Add an option to start subsequent timers automatically
+- [ ] Add a component to feedback to users when they reset/save settings
+- [ ] Add more theme customization options
+- [ ] Add a toggle for "super dark mode" while a timer is active
 - [ ] Add SSG build step before deployment
-- [ ] Add toggle for "super dark mode" while a timer is active
-- [ ] Add more theme options
 
 ## 🤝 Contributing
 Contributions are welcome!

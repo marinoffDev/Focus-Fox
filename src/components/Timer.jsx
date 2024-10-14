@@ -5,7 +5,7 @@ import { formatTime } from "@/lib/utils";
 import { notificationSounds } from "@/lib/notificationSounds"
 
 export default function Timer({ settings }) {
-  const { pomodoro, shortBreak, longBreak, sessionRounds } = settings;
+  const { pomodoro, shortBreak, longBreak, sessionRounds, notificationSound, autoStartPomodoro, autoStartBreak } = settings;
   const [activeTimer, setActiveTimer] = useState("pomodoro");
   const [time, setTime] = useState(pomodoro);
   const [remainingTime, setRemainingTime] = useState(pomodoro);
@@ -13,11 +13,20 @@ export default function Timer({ settings }) {
   const [pomodoroRounds, setpomodoroRounds] = useState(0);
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
-  const audioRef = useRef(new Audio(settings.notificationSound || notificationSounds["Mission Accomplished"]));
+  const audioRef = useRef(new Audio(notificationSound || notificationSounds["Mission Accomplished"]));
 
-  const switchTimer = useCallback((timerType) => {
-    setActiveTimer(timerType);
+  const startTimer = useCallback(() => {
+    setTimerActive(true);
+  }, []);
+
+  const stopTimer = useCallback(() => {
+    clearInterval(intervalRef.current);
     setTimerActive(false);
+  }, []);
+
+  const switchTimer = useCallback((timerType, autoSwitchedTab) => {
+    setActiveTimer(timerType);
+    stopTimer();
 
     if (timerType === "pomodoro") {
       setTime(pomodoro);
@@ -25,32 +34,41 @@ export default function Timer({ settings }) {
       if (pomodoroRounds === sessionRounds) {
         setpomodoroRounds(0);
       }
+      if (autoStartPomodoro && autoSwitchedTab) {
+        startTimer();
+      }
     } else if (timerType === "shortBreak") {
       setTime(shortBreak);
       setRemainingTime(shortBreak);
+      if (autoStartBreak && autoSwitchedTab) {
+        startTimer();
+      }
     } else if (timerType === "longBreak") {
       setTime(longBreak);
       setRemainingTime(longBreak);
+      if (autoStartBreak && autoSwitchedTab) {
+        startTimer();
+      }
     }
-  }, [pomodoro, shortBreak, longBreak, pomodoroRounds, sessionRounds]);
+  }, [pomodoro, shortBreak, longBreak, pomodoroRounds, sessionRounds, autoStartPomodoro, autoStartBreak, startTimer, stopTimer]);
 
-  const handleTimerExpiration = useCallback((playNotificationSound) => {
-    if (playNotificationSound) {
+  const handleTimerExpiration = useCallback((timerExpiredManually) => {
+    if (timerExpiredManually) {
       audioRef.current.play();
+      showNotification(activeTimer === "pomodoro" ? 
+        "Pomodoro finished. Time for a break! 🎉" : 
+        "Break time is over! Let's focus! 🦊💻"
+      );
     }
-    showNotification(activeTimer === "pomodoro" ? 
-      "Pomodoro finished. Time for a break! 🎉" : 
-      "Break time is over! Let's focus! 🦊💻"
-    );
     if (activeTimer === "pomodoro") {
       setpomodoroRounds((prevRounds) => prevRounds + 1);
       if (pomodoroRounds + 1 === sessionRounds) {
-        switchTimer("longBreak");
+        switchTimer("longBreak", timerExpiredManually);
       } else {
-        switchTimer("shortBreak");
+        switchTimer("shortBreak", timerExpiredManually);
       }
     } else if (activeTimer === "shortBreak" || activeTimer === "longBreak") {
-      switchTimer("pomodoro");
+      switchTimer("pomodoro", timerExpiredManually);
     }
   }, [activeTimer, pomodoroRounds, sessionRounds, switchTimer]);
 
@@ -70,10 +88,7 @@ export default function Timer({ settings }) {
           setTime(newTime);
         }
       }, 1000);
-    } else {
-      clearInterval(intervalRef.current);
     }
-
     return () => clearInterval(intervalRef.current);
   }, [timerActive, remainingTime, handleTimerExpiration]);
 
@@ -114,7 +129,6 @@ export default function Timer({ settings }) {
     if (pomodoroRounds > sessionRounds) {
       setpomodoroRounds(0);
     }
-
     if (activeTimer === "pomodoro") {
       setTime(pomodoro);
       setRemainingTime(pomodoro);
@@ -128,8 +142,8 @@ export default function Timer({ settings }) {
   }, [pomodoro, shortBreak, longBreak, activeTimer, pomodoroRounds, sessionRounds]);
 
   useEffect(() => {
-    audioRef.current = new Audio(settings.notificationSound);
-  }, [settings.notificationSound]);
+    audioRef.current = new Audio(notificationSound);
+  }, [notificationSound]);
 
   const requestNotificationPermission = () => {
     if (Notification.permission !== "granted") {
