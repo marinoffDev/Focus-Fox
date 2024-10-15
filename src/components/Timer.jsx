@@ -162,7 +162,7 @@ export default function Timer({ settings }) {
   
   return (
     <div className="my-14 flex flex-col items-center justify-center">
-      <Tabs defaultValue="pomodoro" value={activeTimer} onValueChange={switchTimer} className="w-[400px]">
+      <Tabs defaultValue="pomodoro" value={activeTimer} onValueChange={switchTimer} className="w-full max-w-[400px] sm:w-[400px]">
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger
             value="pomodoro"
