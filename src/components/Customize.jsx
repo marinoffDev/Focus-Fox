@@ -21,11 +21,13 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGear } from "@fortawesome/free-solid-svg-icons";
+import { useToast } from "@/components/hooks/use-toast"
 import { defaultSettings } from "@/lib/defaultSettings"
 import { notificationSounds } from "@/lib/notificationSounds"
 import TimerSlider from "@/components/ui/TimerSlider";
 
 export default function Customize({ timerSettings, onSaveTimerSettings }) {
+  const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [settings, setSettings] = useState(timerSettings);
 
@@ -78,6 +80,10 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       autoStartPomodoro : settings.autoStartPomodoro,
       autoStartBreak : settings.autoStartBreak
     });
+    toast({
+      title: "Success!",
+      description: "Your preferences have been updated.",
+    })
     setOpen(false);
   };
 
