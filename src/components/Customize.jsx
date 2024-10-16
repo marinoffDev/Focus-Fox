@@ -24,7 +24,7 @@ import { faGear } from "@fortawesome/free-solid-svg-icons";
 import { useToast } from "@/components/hooks/use-toast"
 import { defaultSettings } from "@/lib/defaultSettings"
 import { notificationSounds } from "@/lib/notificationSounds"
-import TimerSlider from "@/components/ui/TimerSlider";
+import CustomSlider from "@/components/ui/CustomSlider";
 
 export default function Customize({ timerSettings, onSaveTimerSettings }) {
   const { toast } = useToast();
@@ -39,6 +39,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       longBreak: timerSettings.longBreak / 60,
       sessionRounds: timerSettings.sessionRounds,
       notificationSound: timerSettings.notificationSound,
+      volumeLevel: timerSettings.volumeLevel,
       autoStartPomodoro : timerSettings.autoStartPomodoro,
       autoStartBreak : timerSettings.autoStartBreak
     }));
@@ -50,9 +51,18 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
   };
 
   // Handle notification sound change and play preview sound
+  const handleVolumeChange = (value) => {
+    setSettings((prevSettings) => ({ ...prevSettings, volumeLevel: value }));
+    const sound = new Audio(settings.notificationSound);
+    sound.volume = (value / 100);
+    sound.play();
+  };
+
+  // Handle notification sound change and play preview sound
   const handleSoundChange = (value) => {
     setSettings((prevSettings) => ({ ...prevSettings, notificationSound: value }));
     const sound = new Audio(value);
+    sound.volume = settings.volumeLevel / 100
     sound.play();
   };
 
@@ -64,6 +74,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       longBreak: defaultSettings.longBreak / 60,
       sessionRounds: defaultSettings.sessionRounds,
       notificationSound: defaultSettings.notificationSound,
+      volumeLevel: defaultSettings.volumeLevel,
       autoStartPomodoro : defaultSettings.autoStartPomodoro,
       autoStartBreak : defaultSettings.autoStartBreak
     });
@@ -77,6 +88,7 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       longBreak: settings.longBreak * 60,
       sessionRounds: settings.sessionRounds,
       notificationSound: settings.notificationSound,
+      volumeLevel: settings.volumeLevel,
       autoStartPomodoro : settings.autoStartPomodoro,
       autoStartBreak : settings.autoStartBreak
     });
@@ -101,36 +113,40 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
         </DialogHeader>
         <DialogDescription asChild>
           <div>
-            <TimerSlider
+            <CustomSlider
               label="Pomodoro"
               unit="minute"
               value={settings.pomodoro}
               min={1}
               max={60}
+              isTimerControls={true}
               onChange={(value) => handleChange("pomodoro", value)}
             />
-            <TimerSlider
+            <CustomSlider
               label="Short Break"
               unit="minute"
               value={settings.shortBreak}
               min={1}
               max={30}
+              isTimerControls={true}
               onChange={(value) => handleChange("shortBreak", value)}
             />
-            <TimerSlider
+            <CustomSlider
               label="Long Break"
               unit="minute"
               value={settings.longBreak}
               min={1}
               max={60}
+              isTimerControls={true}
               onChange={(value) => handleChange("longBreak", value)}
             />
-            <TimerSlider
+            <CustomSlider
               label="Session Rounds"
               unit="round"
               value={settings.sessionRounds}
               min={1}
               max={10}
+              isTimerControls={true}
               onChange={(value) => handleChange("sessionRounds", value)}
             />
             <div className="mt-5 flex items-center justify-between">
@@ -154,6 +170,16 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
                 </SelectContent>
               </Select>
             </div>
+            <CustomSlider
+              label="Notification Volume"
+              unit="%"
+              value={settings.volumeLevel}
+              min={0}
+              max={100}
+              step={25}
+              isTimerControls={false}
+              onChange={handleVolumeChange}
+            />
           </div>
         </DialogDescription>
         <DialogFooter className="mt-4 flex justify-center gap-2">

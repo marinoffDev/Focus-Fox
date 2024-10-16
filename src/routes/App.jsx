@@ -28,6 +28,7 @@ function App() {
           longBreak: Number(parsedSettings.longBreak),
           sessionRounds: Number(parsedSettings.sessionRounds),
           notificationSound: parsedSettings.notificationSound,
+          volumeLevel: Number(parsedSettings.volumeLevel),
           autoStartPomodoro: parsedSettings.autoStartPomodoro === true,
           autoStartBreak: parsedSettings.autoStartBreak === true,
         }));

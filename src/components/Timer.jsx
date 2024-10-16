@@ -2,18 +2,17 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TimerCard from "@/components/TimerCard.jsx";
 import { formatTime } from "@/lib/utils";
-import { notificationSounds } from "@/lib/notificationSounds"
 
 export default function Timer({ settings }) {
-  const { pomodoro, shortBreak, longBreak, sessionRounds, notificationSound, autoStartPomodoro, autoStartBreak } = settings;
+  const { pomodoro, shortBreak, longBreak, sessionRounds, notificationSound, volumeLevel, autoStartPomodoro, autoStartBreak } = settings;
   const [activeTimer, setActiveTimer] = useState("pomodoro");
   const [time, setTime] = useState(pomodoro);
   const [remainingTime, setRemainingTime] = useState(pomodoro);
   const [timerActive, setTimerActive] = useState(false);
   const [pomodoroRounds, setpomodoroRounds] = useState(0);
+  const audioRef = useRef(new Audio(notificationSound));
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
-  const audioRef = useRef(new Audio(notificationSound || notificationSounds["Mission Accomplished"]));
 
   const startTimer = useCallback(() => {
     setTimerActive(true);
@@ -74,6 +73,7 @@ export default function Timer({ settings }) {
 
   useEffect(() => {
     if (timerActive) {
+      requestNotificationPermission();
       startTimeRef.current = Date.now();
       intervalRef.current = setInterval(() => {
         const elapsedTime = Math.floor((Date.now() - startTimeRef.current) / 1000);
@@ -95,7 +95,6 @@ export default function Timer({ settings }) {
   useEffect(() => {
     if (timerActive) {
       document.title = `${formatTime(time)} - Focus Fox`;
-      requestNotificationPermission();
     } else {
       document.title = "Focus Fox";
     }
@@ -143,7 +142,8 @@ export default function Timer({ settings }) {
 
   useEffect(() => {
     audioRef.current = new Audio(notificationSound);
-  }, [notificationSound]);
+    audioRef.current.volume = volumeLevel / 100
+  }, [notificationSound, volumeLevel]);
 
   const requestNotificationPermission = () => {
     if (Notification.permission !== "granted") {

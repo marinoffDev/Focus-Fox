@@ -87,7 +87,7 @@ Future plans for enhancements and development:
 - [x] Add browser cookies support to store the user's customization preferences
 - [x] Add an option to start subsequent timers automatically
 - [x] Add a component that provides user feedback when their custom preferences have been applied
-- [ ] Add a customization option for the volume of notification sounds
+- [x] Add volume controls for the notification sound
 - [ ] Add more theme customization options
 - [ ] Add a toggle for "super dark mode" while a timer is active
 - [ ] Add SSG build step before deployment

@@ -1,18 +1,19 @@
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 
-export default function TimerSlider({ label, unit, value, min, max, onChange }) {
+export default function CustomSlider({ label, unit, value, min, max, onChange, isTimerControls, step }) {
   return (
     <>
       <div className="flex justify-between my-4">
         <Label>{label}</Label>
-        <Label>{`${value} ${value > 1 ? unit + 's' : unit}`}</Label>
+        {isTimerControls && <Label>{`${value} ${value > 1 ? unit + 's' : unit}`}</Label>}
+        {!isTimerControls && <Label>{`${value} ${unit}`}</Label>}
       </div>
       <Slider
         value={[value]}  // React Slider expects an array for a single value
         min={min}
         max={max}
-        step={1}
+        step={step || 1}
         onValueChange={(newValue) => onChange(newValue[0])}  // Pass new value back to parent
       />
     </>
