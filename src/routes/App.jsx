@@ -17,26 +17,19 @@ function App() {
 
   useEffect(() => {
     const loadSettingsFromCookies = () => {
-      const pomodoroCookie = Cookies.get("pomodoro");
-      const shortBreakCookie = Cookies.get("shortBreak");
-      const longBreakCookie = Cookies.get("longBreak");
-      const sessionRoundsCookie = Cookies.get("sessionRounds");
-      const notificationSoundCookie = Cookies.get("notificationSound");
-      const autoStartPomodoroCookie = Cookies.get("autoStartPomodoro");
-      const autoStartBreakCookie = Cookies.get("autoStartBreak");
+      const userPreferences = Cookies.get("userPreferences");
 
-      if (pomodoroCookie && shortBreakCookie && longBreakCookie && 
-        sessionRoundsCookie && notificationSoundCookie && 
-        autoStartPomodoroCookie && autoStartBreakCookie) {
+      if (userPreferences) {
+        const parsedSettings = JSON.parse(userPreferences);
         setTimerSettings((prevSettings) => ({
           ...prevSettings,
-          pomodoro: Number(pomodoroCookie),
-          shortBreak: Number(shortBreakCookie),
-          longBreak: Number(longBreakCookie),
-          sessionRounds: Number(sessionRoundsCookie),
-          notificationSound: notificationSoundCookie,
-          autoStartPomodoro: autoStartPomodoroCookie === "true",
-          autoStartBreak: autoStartBreakCookie === "true"
+          pomodoro: Number(parsedSettings.pomodoro),
+          shortBreak: Number(parsedSettings.shortBreak),
+          longBreak: Number(parsedSettings.longBreak),
+          sessionRounds: Number(parsedSettings.sessionRounds),
+          notificationSound: parsedSettings.notificationSound,
+          autoStartPomodoro: parsedSettings.autoStartPomodoro === true,
+          autoStartBreak: parsedSettings.autoStartBreak === true,
         }));
       }
     };
@@ -46,13 +39,7 @@ function App() {
 
   const handleSaveTimerSettings = (newSettings) => {
     setTimerSettings(newSettings);
-    Cookies.set("pomodoro", newSettings.pomodoro, { expires: 365 });
-    Cookies.set("shortBreak", newSettings.shortBreak, { expires: 365 });
-    Cookies.set("longBreak", newSettings.longBreak, { expires: 365 });
-    Cookies.set("sessionRounds", newSettings.sessionRounds, { expires: 365 });
-    Cookies.set("notificationSound", newSettings.notificationSound, { expires: 365 });
-    Cookies.set("autoStartPomodoro", newSettings.autoStartPomodoro, { expires: 365 });
-    Cookies.set("autoStartBreak", newSettings.autoStartBreak, { expires: 365 });
+    Cookies.set("userPreferences", JSON.stringify(newSettings), { expires: 365, sameSite: "Lax", secure: true })
   };
 
   const handleScrollToSection = (section) => {
