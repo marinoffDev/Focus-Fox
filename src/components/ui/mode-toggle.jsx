@@ -31,6 +31,9 @@ export function ModeToggle() {
         <DropdownMenuItem onClick={() => setTheme("system")}>
           System
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("polarNight")}>
+          Polar Night
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
