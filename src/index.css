@@ -69,16 +69,16 @@
     --gradient: 226, 100%, 89%;
 
     --background: 240 65% 7.12%;
-    --foreground: 240 10% 99.45%;
+    --foreground: 240 20% 90%;
 
     --muted: 240 50% 26.7%;
-    --muted-foreground: 240 10% 58.9%;
+    --muted-foreground: 240 10% 75%;
 
     --popover: 240 45% 11.57%;
-    --popover-foreground: 240 10% 99.45%;
+    --popover-foreground: 240 20% 90%;
 
     --card: 240 45% 11.57%;
-    --card-foreground: 240 10% 99.45%;
+    --card-foreground: 240 20% 90%;
 
     --border: 240 50% 26.7%;
     --input: 240 50% 26.7%;
@@ -87,15 +87,38 @@
     --primary-foreground: 240 10% 8.9%;
 
     --secondary: 240 50% 26.7%;
-    --secondary-foreground: 240 10% 99.45%;
+    --secondary-foreground: 240 20% 90%;
 
     --accent: 240 50% 26.7%;
-    --accent-foreground: 240 10% 99.45%;
+    --accent-foreground: 240 20% 90%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 240 10% 99.45%;
+    --destructive-foreground: 240 20% 90%;
 
     --ring: 240 100% 89%;
+  }
+
+  .peachyHaze {
+    --background: 12 55% 90%;
+    --foreground: 20 14.3% 25%;
+    --card: 12 55% 92%;
+    --card-foreground: 20 14.3% 32%;
+    --popover: 12 55% 95;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 24.6 95% 53.1%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 60 4.8% 93%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 92%;
+    --muted-foreground: 25 5.3% 43%;
+    --accent: 60 4.8% 92%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 75%;
+    --ring: 24.6 95% 53.1%;
+    --radius: 0.5rem;
   }
 }
 

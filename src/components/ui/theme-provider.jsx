@@ -2,13 +2,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const ThemeProviderContext = createContext({
-  theme: "system",
+  theme: "dark",
   setTheme: () => null,
 });
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "dark",
   storageKey = "vite-ui-theme",
   ...props
 }) {
@@ -18,17 +18,8 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement;
-    root.classList.remove("light", "dark", "polarNight");
-
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-      root.classList.add(systemTheme);
-    } else {
-      root.classList.add(theme);
-    }
+    root.classList.remove("light", "dark", "polarNight", "peachyHaze");
+    root.classList.add(theme);
   }, [theme]);
 
   const setTheme = (theme) => {

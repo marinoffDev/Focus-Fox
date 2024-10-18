@@ -88,7 +88,7 @@ Future plans for enhancements and development:
 - [x] Add an option to start subsequent timers automatically
 - [x] Add a component that provides user feedback when their custom preferences have been applied
 - [x] Add volume controls for the notification sound
-- [ ] Add more theme customization options
+- [x] Add more theme customization options
 - [ ] Add a toggle for "super dark mode" while a timer is active
 - [ ] Add SSG build step before deployment
 
