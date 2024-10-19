@@ -32,7 +32,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme" className="theme-transition">
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <RouterProvider router={router} />
     </ThemeProvider>
   </React.StrictMode>

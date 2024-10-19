@@ -41,7 +41,8 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       notificationSound: timerSettings.notificationSound,
       volumeLevel: timerSettings.volumeLevel,
       autoStartPomodoro : timerSettings.autoStartPomodoro,
-      autoStartBreak : timerSettings.autoStartBreak
+      autoStartBreak : timerSettings.autoStartBreak,
+      superDarkMode: timerSettings.superDarkMode,
     }));
   }, [timerSettings]);
 
@@ -76,7 +77,8 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       notificationSound: defaultSettings.notificationSound,
       volumeLevel: defaultSettings.volumeLevel,
       autoStartPomodoro : defaultSettings.autoStartPomodoro,
-      autoStartBreak : defaultSettings.autoStartBreak
+      autoStartBreak : defaultSettings.autoStartBreak,
+      superDarkMode: defaultSettings.superDarkMode,
     });
   };
   
@@ -90,7 +92,8 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
       notificationSound: settings.notificationSound,
       volumeLevel: settings.volumeLevel,
       autoStartPomodoro : settings.autoStartPomodoro,
-      autoStartBreak : settings.autoStartBreak
+      autoStartBreak : settings.autoStartBreak,
+      superDarkMode: settings.superDarkMode,
     });
     toast({
       title: "Success!",
@@ -156,6 +159,10 @@ export default function Customize({ timerSettings, onSaveTimerSettings }) {
             <div className="mt-5 flex items-center justify-between">
               <Label>Auto Start Breaks</Label>
               <Switch checked={settings.autoStartBreak} onCheckedChange={(value) => handleChange("autoStartBreak", value)} />
+            </div>
+            <div className="mt-5 flex items-center justify-between">
+                <Label>Super-Dark Mode While Running</Label>
+                <Switch checked={settings.superDarkMode} onCheckedChange={(value) => handleChange("superDarkMode", value)} />
             </div>
             <div className="mt-5 flex items-center gap-4">
               <Label className="text-nowrap">Notification Sound</Label>

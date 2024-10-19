@@ -120,6 +120,34 @@
     --ring: 24.6 95% 53.1%;
     --radius: 0.5rem;
   }
+
+  .superDark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 50%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 50%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 50%;
+    --primary: 0 0% 50%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 50%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 45%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 50%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 50%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 45%;
+    --radius: 0.5rem;
+
+    #root > nav > div > a > img {
+      filter: grayscale(100%) contrast(150%);
+      transition: filter 0.33s cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
+  }
 }
 
 @layer base {
@@ -128,5 +156,11 @@
   }
   body {
     @apply bg-background text-foreground;
+    transition:
+      background-color 0.66s cubic-bezier(0.39, 0.575, 0.565, 1), 
+      color 0.33s cubic-bezier(0.39, 0.575, 0.565, 1), 
+      border-color 0.33s cubic-bezier(0.39, 0.575, 0.565, 1),
+      fill 0.33s cubic-bezier(0.39, 0.575, 0.565, 1),
+      stroke 0.33s cubic-bezier(0.39, 0.575, 0.565, 1);
   }
 }

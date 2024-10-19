@@ -4,7 +4,7 @@ import TimerCard from "@/components/TimerCard.jsx";
 import { formatTime } from "@/lib/utils";
 
 export default function Timer({ settings }) {
-  const { pomodoro, shortBreak, longBreak, sessionRounds, notificationSound, volumeLevel, autoStartPomodoro, autoStartBreak } = settings;
+  const { pomodoro, shortBreak, longBreak, sessionRounds, notificationSound, volumeLevel, autoStartPomodoro, autoStartBreak, superDarkMode } = settings;
   const [activeTimer, setActiveTimer] = useState("pomodoro");
   const [time, setTime] = useState(pomodoro);
   const [remainingTime, setRemainingTime] = useState(pomodoro);
@@ -13,6 +13,7 @@ export default function Timer({ settings }) {
   const audioRef = useRef(new Audio(notificationSound));
   const intervalRef = useRef(null);
   const startTimeRef = useRef(null);
+  const root = useRef(window.document.documentElement);
 
   const startTimer = useCallback(() => {
     setTimerActive(true);
@@ -72,7 +73,12 @@ export default function Timer({ settings }) {
   }, [activeTimer, pomodoroRounds, sessionRounds, switchTimer]);
 
   useEffect(() => {
+    const rootElement = root.current;
+  
     if (timerActive) {
+      if (superDarkMode) {
+        rootElement.classList.add("superDark");
+      }
       requestNotificationPermission();
       startTimeRef.current = Date.now();
       intervalRef.current = setInterval(() => {
@@ -89,8 +95,12 @@ export default function Timer({ settings }) {
         }
       }, 1000);
     }
-    return () => clearInterval(intervalRef.current);
-  }, [timerActive, remainingTime, handleTimerExpiration]);
+  
+    return () => {
+      rootElement.classList.remove("superDark");
+      clearInterval(intervalRef.current);
+    };
+  }, [timerActive, remainingTime, handleTimerExpiration, superDarkMode]);
 
   useEffect(() => {
     if (timerActive) {

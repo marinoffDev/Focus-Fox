@@ -31,6 +31,7 @@ function App() {
           volumeLevel: Number(parsedSettings.volumeLevel),
           autoStartPomodoro: parsedSettings.autoStartPomodoro === true,
           autoStartBreak: parsedSettings.autoStartBreak === true,
+          superDarkMode: parsedSettings.superDarkMode === true,
         }));
       }
     };

@@ -8,5 +8,6 @@ export const defaultSettings = {
   notificationSound: notificationSounds["Mission Accomplished"],
   volumeLevel: 50,
   autoStartPomodoro : false,
-  autoStartBreak : false
+  autoStartBreak : false,
+  superDarkMode : false
 }
