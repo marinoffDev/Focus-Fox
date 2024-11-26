@@ -90,7 +90,6 @@ Future plans for enhancements and development:
 - [x] Add volume controls for the notification sound
 - [x] Add more theme customization options
 - [x] Add a toggle for "super dark mode" while a timer is active
-- [ ] Add SSG build step before deployment
 
 ## 🤝 Contributing
 Contributions are welcome!
